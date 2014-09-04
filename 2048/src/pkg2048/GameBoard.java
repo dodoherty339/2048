@@ -34,8 +34,8 @@ public class GameBoard
     {
         do
         {
-            x = rand.nextInt(3);
-            y = rand.nextInt(3);
+            x = rand.nextInt(4);
+            y = rand.nextInt(4);
         }while(!(board[x][y].isCellOpen()));
         board[x][y].setValue(newValue[rand.nextInt(10)]);
     }
@@ -64,7 +64,7 @@ public class GameBoard
     {
         for(int row=0;row<=3;row++)
         {
-            Cell[] tempRow = new Cell[4];
+            Cell[] tempRow;
             tempRow=board[row];
             board[row]=left(tempRow,0,1);
         }
@@ -82,14 +82,14 @@ public class GameBoard
                 tempRow = left(tempRow,lCell+2,rCell+2);
             }else if((lVal!=null)&&(rVal==null)){
                 tempRow = left(tempRow,lCell,rCell+1);
-            }else if((lVal==null)&&(rVal!=null)){
-                tempRow = left(tempRow,lCell+1,rCell+1);
-            }else if(lVal==rVal){
+            }else if((lVal==rVal)||((lVal==null)&&(rVal!=null))){
+                if(lVal==null){
+                    lVal=0;
+                }
                 lVal = lVal+rVal;
                 tempRow[lCell].setValue(null);
                 tempRow[rCell].setValue(null);
-                for(int i=0;i<=lCell;i++)
-                {
+                for(int i=0;i<=lCell;i++){
                     if(tempRow[i].isCellOpen()){
                         tempRow[lCell].setValue(lVal);
                     }
