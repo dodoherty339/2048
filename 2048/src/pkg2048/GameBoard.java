@@ -79,7 +79,7 @@ public class GameBoard
             Integer rVal = tempRow[rCell].getValue();
 
             if((lVal==null)&&(rVal==null)){
-                tempRow = left(tempRow,lCell+2,rCell+2);
+                tempRow = left(tempRow,lCell+1,rCell+1);
             }else if((lVal!=null)&&(rVal==null)){
                 tempRow = left(tempRow,lCell,rCell+1);
             }else if((lVal==rVal)||((lVal==null)&&(rVal!=null))){
@@ -91,7 +91,17 @@ public class GameBoard
                 tempRow[rCell].setValue(null);
                 for(int i=0;i<=lCell;i++){
                     if(tempRow[i].isCellOpen()){
-                        tempRow[lCell].setValue(lVal);
+                        tempRow[i].setValue(lVal);
+                        break;
+                    }
+                }
+                tempRow = left(tempRow,lCell+1,rCell+1);
+            }else if((lVal!=rVal)&&(lVal!=null)&&(rVal!=null)){
+                for(int i=lCell;i<=rCell;i++){
+                    if(tempRow[i].isCellOpen()){
+                        tempRow[rCell].setValue(null);
+                        tempRow[i].setValue(rVal);
+                        break;
                     }
                 }
                 tempRow = left(tempRow,lCell+1,rCell+1);
