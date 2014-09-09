@@ -30,7 +30,7 @@ public class GameBoard
         setRandCell();
     }
    
-    private void setRandCell()
+    void setRandCell()
     {
         do
         {
@@ -72,7 +72,7 @@ public class GameBoard
         printBoard();
     }
     
-    private Cell[] left(Cell[] tempRow, final int lCell, int rCell)
+    Cell[] left(Cell[] tempRow, final int lCell, int rCell)
     {
         if(rCell<tempRow.length){
             Integer lVal = tempRow[lCell].getValue();
@@ -112,7 +112,52 @@ public class GameBoard
    
     public void right()
     {
-       
+        for(int row=0;row<=3;row++)
+        {
+            Cell[] tempRow;
+            tempRow=board[row];
+            board[row]=right(tempRow,2,3);
+        }
+        setRandCell();
+        printBoard();
+    }
+    
+    Cell[] right(Cell[] tempRow, final int lCell, int rCell)
+    {
+        if(lCell>=0){
+            Integer lVal = tempRow[lCell].getValue();
+            Integer rVal = tempRow[rCell].getValue();
+
+            if((rVal==null)&&(lVal==null)){
+                tempRow = right(tempRow,lCell-1,rCell-1);
+            }else if((rVal!=null)&&(lVal==null)){
+                tempRow = right(tempRow,lCell-1,rCell);
+            }else if((rVal==lVal)||((rVal==null)&&(lVal!=null))){
+                if(rVal==null){
+                    rVal=0;
+                }
+                rVal = rVal+lVal;
+                tempRow[lCell].setValue(null);
+                tempRow[rCell].setValue(null);
+                for(int i=3;i>=0;i--){
+                    if(tempRow[i].isCellOpen()){
+                        tempRow[i].setValue(rVal);
+                        break;
+                    }
+                }
+                tempRow = right(tempRow,lCell-1,rCell-1);
+            }else if((rVal!=lVal)&&(rVal!=null)&&(lVal!=null)){
+                for(int i=rCell;i>=lCell;i--){
+                    if(tempRow[i].isCellOpen()){
+                        tempRow[lCell].setValue(null);
+                        tempRow[i].setValue(lVal);
+                        break;
+                    }
+                }
+                tempRow = right(tempRow,lCell-1,rCell-1);
+            }
+        }
+        return tempRow;
     }
    
     public void up()
