@@ -163,7 +163,7 @@ public class GameBoard
    
     public void up()
     {
-       
+
     }
    
     public void down()
@@ -192,4 +192,5 @@ public class GameBoard
         }
         System.out.println("-----------------");
     }
+
 }
