@@ -21,12 +21,12 @@ public class Main {
         gb.printBoard();
         String dir;
         
-        System.out.println("Enter next move(Left,Right,Up,Down): ");
-        dir = input.next();
-        dir = dir.toLowerCase();
-        
         do
         {
+            System.out.println("Enter next move(Left,Right,Up,Down): ");
+            dir = input.next();
+            dir = dir.toLowerCase();
+            
             switch(dir)
             {
                 case "left": case "l":
@@ -41,13 +41,13 @@ public class Main {
                 case "down": case "d":
                     gb.down();
                     break;
+                case "quit": case "q":
+                    break;
                 default:
                     System.out.println("Invalid direction");
                     break;
             }
-            System.out.println("Enter next move(Left,Right,Up,Down): ");
-            dir = input.next();
-        }while(dir.compareTo("q")!=1);
+        }while(!"q".equals(dir));
     }
    
 }

@@ -8,16 +8,17 @@ public class GameBoard
    
     private int y;
    
-    private Cell[][] board = new Cell[4][4];
+    private final Cell[][] board = new Cell[4][4];
    
-    private final Integer[] newValue = {2,2,2,2,2,2,2,2,2,4};
+    private final Integer[] newValue;
    
-    private Random rand = new Random();
+    private final Random rand = new Random();
    
     private Thread t;
    
     public GameBoard()
     {
+        this.newValue = new Integer[]{2, 2, 2, 2, 2, 2, 2, 2, 2, 4};
         for(int row=0;row<4;row++)
         {
             for(int col=0;col<4;col++)
@@ -30,7 +31,7 @@ public class GameBoard
         setRandCell();
     }
    
-    void setRandCell()
+    private void setRandCell()
     {
         do
         {
